@@ -1,11 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "ItemData")]
-public class ItemData : ScriptableObject
+namespace PD32.gfjnds
 {
-    public string Id;
-    public string Name;
+    [CreateAssetMenu(fileName = "ItemData", menuName = "33-35/ScriptableObjects/ItemData")]
+    public class ItemData : ScriptableObject
+    {
+        public string Id;
+        public string Name;
 
-    public GameObject Prefab;
+        public GameObject Prefab;
 
+    }
 }
+
