@@ -14,7 +14,7 @@ namespace PD31.Scripts
         {
             GetComponent<Collider>().isTrigger = true;
         }
-
+        
         private void OnTriggerEnter(Collider other)
         {
             var holder = other.GetComponent<InventoryHolder>();
