@@ -8,7 +8,7 @@ namespace PD3335.Scripts.Inventory
     public class Inventory
     {
         private Dictionary<ItemData, int> _items;
-        public event Action OnItemAdded;
+        public event Action<ItemData, int> OnItemAdded;
 
         public IEnumerable<KeyValuePair<ItemData, int>> Items => _items;
 
@@ -28,7 +28,7 @@ namespace PD3335.Scripts.Inventory
                 _items[item] = quantity;
             }
 
-            OnItemAdded?.Invoke();
+            OnItemAdded?.Invoke(item, quantity);
         }
     }
 }

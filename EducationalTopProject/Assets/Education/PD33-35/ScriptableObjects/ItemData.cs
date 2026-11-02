@@ -10,10 +10,14 @@ namespace PD3335.ScriptableObjects
 
         [SerializeField] private GameObject _prefab;
 
+        [SerializeField] private Sprite _sprite;
+
         public string Id => _id;
         public string Name => _name;
 
         public GameObject Prefab => _prefab;
+
+        public Sprite Sprite => _sprite;
 
     }
 }

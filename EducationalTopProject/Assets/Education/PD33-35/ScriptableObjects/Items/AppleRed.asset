@@ -15,3 +15,4 @@ MonoBehaviour:
   _id: apple_red
   _name: Apple
   _prefab: {fileID: 5865044735481205385, guid: 6b4964f55c637e64ba214783af8b085a, type: 3}
+  _sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
