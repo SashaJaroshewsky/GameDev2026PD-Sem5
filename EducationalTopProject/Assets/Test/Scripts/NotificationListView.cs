@@ -6,9 +6,9 @@ namespace Assets.Test.Scripts
 {
     public class NotificationListView : MonoBehaviour
     {
-        [SerializeField] private NotificationToastView _toastPrefab;
+        [SerializeField] private NotificationToastBase _toastPrefab;
 
-        private readonly Dictionary<string, NotificationToastView> _active = new();
+        private readonly Dictionary<string, NotificationToastBase> _active = new();
 
         public void Show(string key, string displayName, int amount, Sprite icon = null)
         {

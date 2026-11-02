@@ -1,41 +1,13 @@
-﻿using System;
-using System.Collections;
-using TMPro;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Assets.Test.Scripts
 {
-    public class NotificationToastView : MonoBehaviour
+    public class NotificationToastView : NotificationToastBase
     {
-        [SerializeField] private CanvasGroup _canvasGroup;
-        [SerializeField] private Image _iconImage;
-        [SerializeField] private TMP_Text _label;
-        [SerializeField] private float _showDuration = 1.2f;
-        [SerializeField] private float _fadeDuration = 0.2f;
-
-        private string _displayName;
-        private int _amount;
         private Coroutine _routine;
-        private Action _onFinished;
 
-        public void Play(string displayName, int amount, Sprite icon, Action onFinished)
-        {
-            _displayName = displayName;
-            _amount = amount;
-            _onFinished = onFinished;
-
-            _iconImage.sprite = icon;
-            _iconImage.enabled = icon != null;
-            _canvasGroup.alpha = 0f;
-
-            UpdateLabel();
-            RestartLifecycle();
-        }
-
-
-        private void UpdateLabel() => _label.text = $"+{_amount} {_displayName}";
-        private void RestartLifecycle()
+        protected override void StartLifecycle()
         {
             if (_routine != null) StopCoroutine(_routine);
             _routine = StartCoroutine(Lifecycle());
@@ -48,8 +20,7 @@ namespace Assets.Test.Scripts
             yield return new WaitForSeconds(_showDuration);
             yield return Fade(1f, 0f);
 
-            _onFinished?.Invoke();
-            Destroy(gameObject);
+            Finish();
         }
 
         private IEnumerator Fade(float from, float to)
@@ -62,13 +33,6 @@ namespace Assets.Test.Scripts
                 yield return null;
             }
             _canvasGroup.alpha = to;
-        }
-
-        public void AddAmount(int extra)
-        {
-            _amount += extra;
-            UpdateLabel();
-            RestartLifecycle();
         }
     }
 }

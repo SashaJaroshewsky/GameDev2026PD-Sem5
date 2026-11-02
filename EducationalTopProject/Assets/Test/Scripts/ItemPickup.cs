@@ -11,6 +11,10 @@ namespace Assets.Test.Scripts
 
         [Min(1)][SerializeField] private int _amount = 1;
 
+        // Тепер об'єкт живе ще деякий час після підбору (поки летить), тож без цього прапорця
+        // OnTriggerEnter міг би спрацювати вдруге і предмет додався б двічі.
+        private bool _collected;
+
         private void Reset()
         {
             GetComponent<Collider>().isTrigger = true;
@@ -18,14 +22,19 @@ namespace Assets.Test.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-
-
+            if (_collected) return;
             if (!other.TryGetComponent<InventoryHolder>(out var holder)) return;
-            //var holder = other.GetComponent<InventoryHolder>();
-            //if (holder == null) return;
 
+            _collected = true;
+
+            // Логіка: предмет у інвентарі ОДРАЗУ. Політ нижче — суто візуальний.
             holder.Inventory.AddItem(_data, _amount);
-            Destroy(gameObject);
+
+            // Анімація необов'язкова: нема компонента — працює як раніше.
+            if (TryGetComponent<PickupFlyAnimation>(out var fly))
+                fly.Play(holder.transform, onComplete: () => Destroy(gameObject));
+            else
+                Destroy(gameObject);
         }
     }
 }
